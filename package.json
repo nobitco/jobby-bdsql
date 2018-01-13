@@ -1,0 +1,19 @@
+{
+  "name": "jobby-bdsql",
+  "version": "0.1.0",
+  "description": "Módulo de base de datos SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nobitco/jobby-bdsql.git"
+  },
+  "author": "Jesus Marquez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nobitco/jobby-bdsql/issues"
+  },
+  "homepage": "https://github.com/nobitco/jobby-bdsql#readme"
+}
