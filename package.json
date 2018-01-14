@@ -4,6 +4,7 @@
   "description": "Módulo de base de datos SQL",
   "main": "index.js",
   "scripts": {
+    "setup": "DEBUG=platziverse:* && node setup.js",
     "lint": "standard"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/nobitco/jobby-bdsql#readme",
   "dependencies": {
+    "debug": "^3.1.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
     "sequelize": "^4.31.1"
