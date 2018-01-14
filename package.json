@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/nobitco/jobby-bdsql/issues"
   },
-  "homepage": "https://github.com/nobitco/jobby-bdsql#readme"
+  "homepage": "https://github.com/nobitco/jobby-bdsql#readme",
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.31.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
 }
