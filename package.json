@@ -4,6 +4,7 @@
   "description": "Módulo de base de datos SQL",
   "main": "index.js",
   "scripts": {
+    "test": "DEBUG=platziverse:* ava tests/ --verbose",
     "setup": "DEBUG=platziverse:* && node setup.js",
     "lint": "standard"
   },
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/nobitco/jobby-bdsql#readme",
   "dependencies": {
+    "ava": "^0.25.0",
     "chalk": "^2.3.2",
     "debug": "^3.1.0",
     "inquirer": "^5.1.0",
