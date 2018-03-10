@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/nobitco/jobby-bdsql#readme",
   "dependencies": {
+    "chalk": "^2.3.2",
     "debug": "^3.1.0",
+    "inquirer": "^5.1.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
     "sequelize": "^4.31.1"
