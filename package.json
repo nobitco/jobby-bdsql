@@ -29,6 +29,7 @@
     "sequelize": "^4.31.1"
   },
   "devDependencies": {
+    "faker": "^4.1.0",
     "proxyquire": "^2.0.0",
     "sinon": "^4.4.2",
     "sqlite3": "^3.1.13",
