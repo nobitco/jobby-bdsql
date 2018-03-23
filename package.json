@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "SET DEBUG=platziverse:* && ava tests/ --verbose",
-    "setup": "DEBUG=platziverse:* && node setup.js",
+    "setup": "SET DEBUG=platziverse:* && node setup.js",
     "lint": "standard"
   },
   "repository": {
