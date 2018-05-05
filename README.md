@@ -9,7 +9,8 @@ Este es el módulo de base de datos estructurado para jobby.
 ## Librerías
 En el directorio lib se encuentra user.js archivo con las funciones para operaciones de usuarios.
 ## Tests
-En el directorio tests/ se encuentra los archivos con los tests. Ejecute el siguiente comando para user.js archivo con las funciones para operaciones de usuarios.
+En el directorio tests/ se encuentra los archivos con los tests. Ejecute el siguiente comando para correr todos los tests:
+	npm run test
 ## Seedings database
 	npm run seeding
 ## Probar librería y base de datos
