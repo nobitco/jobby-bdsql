@@ -4,9 +4,10 @@
   "description": "Módulo de base de datos SQL",
   "main": "index.js",
   "scripts": {
-    "test": "SET DEBUG=platziverse:* && ava tests/ --verbose",
-    "setup": "SET DEBUG=platziverse:* && node setup.js",
-    "lint": "standard"
+    "test": "DEBUG=jobby-bdsql:* && ava tests/ --verbose",
+    "setup": "DEBUG=jobby-bdsql:* && node setup.js",
+    "lint": "standard",
+    "seeding":"node examples/seeding.js"
   },
   "repository": {
     "type": "git",

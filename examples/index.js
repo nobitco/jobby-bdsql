@@ -13,16 +13,25 @@ async function run () {
 
   const { User } = await db(config).catch(handleFatalError)
 
+  /*
   for (var i = 0; i < TOTAL_USERS; i++) {
     const user = await User.createOrUpdate({
       username: faker.internet.userName(),
       password: faker.internet.password()
     }).catch(handleFatalError)
-  }
+  }*/
 
   const users = await User.findAll().catch(handleFatalError)
   console.log('--usuarios--')
   console.log(users)
+
+  let single = {
+    username: 'Elena54'
+  }
+
+  const user = await User.findByUsername(single.username).catch(handleFatalError)
+  console.log('--an user--')
+  console.log(user)
 
   /*
   const borrado = await User.deleteByUsername('juana.hanz').catch(handleFatalError)
