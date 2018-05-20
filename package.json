@@ -7,7 +7,7 @@
     "test": "DEBUG=jobby-bdsql:* && ava tests/ --verbose",
     "setup": "DEBUG=jobby-bdsql:* && node setup.js",
     "lint": "standard",
-    "seeding":"node examples/seeding.js"
+    "seeding": "node examples/seeding.js"
   },
   "repository": {
     "type": "git",
@@ -26,8 +26,8 @@
     "defaults": "^1.0.3",
     "inquirer": "^5.1.0",
     "mysql": "^2.15.0",
-    "mysql2": "^1.5.1",
-    "sequelize": "^4.31.1"
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.8"
   },
   "devDependencies": {
     "faker": "^4.1.0",

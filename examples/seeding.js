@@ -16,7 +16,8 @@ async function run () {
   for (var i = 0; i < TOTAL_USERS; i++) {
     const user = await User.createOrUpdate({
       username: faker.internet.userName(),
-      password: faker.internet.password()
+      password: faker.internet.password(),
+      email: faker.internet.email()
     }).catch(handleFatalError)
   }
 

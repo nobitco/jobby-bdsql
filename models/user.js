@@ -14,6 +14,14 @@ module.exports = function setupUserModel (config) {
     password: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    emailToken: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   })
 }
