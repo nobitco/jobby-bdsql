@@ -22,6 +22,10 @@ module.exports = function setupUserModel (config) {
     emailToken: {
       type: Sequelize.STRING,
       allowNull: true
+    },
+    emailVerified: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
     }
   })
 }
