@@ -19,7 +19,8 @@ async function run () {
       password: faker.internet.password(),
       email: faker.internet.email(),
       emailToken: faker.random.uuid(),
-      emailVerified: false
+      emailVerified: false,
+      passwordVerified: false
     }).catch(handleFatalError)
   }
 

@@ -26,6 +26,10 @@ module.exports = function setupUserModel (config) {
     emailVerified: {
       type: Sequelize.BOOLEAN,
       allowNull: false
+    },
+    passwordVerified: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
     }
   })
 }
