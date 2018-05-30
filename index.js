@@ -3,6 +3,8 @@
 const setupDatabase = require('./lib/db')
 const setupUserModel = require('./models/user')
 const setupUser = require('./lib/user')
+const setupStudentModel = require('./models/student')
+const setupStudent = require('./lib/student')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -20,16 +22,19 @@ module.exports = async function (config) {
 
   const sequelize = setupDatabase(config)
   const UserModel = setupUserModel(config)
+  const StudentModel = setupStudentModel(config)
 
   await sequelize.authenticate()
 
   if (config.setup) {
-    await sequelize.sync({ force: true })
+    await sequelize.sync({ force: false })
   }
 
   const User = setupUser(UserModel)
+  const Student = setupStudent(StudentModel)
 
   return {
-    User
+    User,
+    Student
   }
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "DEBUG=jobby-bdsql:* && ava tests/ --verbose",
-    "setup": "DEBUG=jobby-bdsql:* && node setup.js",
+    "setup": "SET DEBUG=jobby-bdsql:* && node setup.js",
     "lint": "standard",
     "seeding": "node examples/seeding.js"
   },

@@ -30,6 +30,10 @@ module.exports = function setupUserModel (config) {
     passwordVerified: {
       type: Sequelize.BOOLEAN,
       allowNull: false
+    },
+    avatar: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   })
 }
