@@ -24,10 +24,12 @@ module.exports = async function (config) {
   const UserModel = setupUserModel(config)
   const StudentModel = setupStudentModel(config)
 
+  StudentModel.belongsTo(UserModel)
+
   await sequelize.authenticate()
 
   if (config.setup) {
-    await sequelize.sync({ force: false })
+    await sequelize.sync({ force: true })
   }
 
   const User = setupUser(UserModel)
