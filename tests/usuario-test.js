@@ -10,6 +10,11 @@ let db = null
 let config = {
   logging: function () {}
 }
+
+let StudentStub = {
+  belongsTo: sinon.spy()
+}
+
 let UserStub = null
 let sandbox = null
 let username = 'jamarquez'
@@ -47,7 +52,8 @@ test.beforeEach(async () => {
   UserStub.update.withArgs(single, usernameArgs).returns(Promise.resolve(single))
 
   const setupDatabase = proxyquire('../', {
-    './models/user': () => UserStub
+    './models/user': () => UserStub,
+    './models/student': () => StudentStub
   })
 
   db = await setupDatabase(config)

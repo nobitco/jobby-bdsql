@@ -11,7 +11,7 @@ async function run () {
     dialect: 'mysql'
   }
 
-  const { User } = await db(config).catch(handleFatalError)
+  const { User, Student } = await db(config).catch(handleFatalError)
 
   for (var i = 0; i < TOTAL_USERS; i++) {
     const user = await User.createOrUpdate({
@@ -20,8 +20,19 @@ async function run () {
       email: faker.internet.email(),
       emailToken: faker.random.uuid(),
       emailVerified: false,
-      passwordVerified: false
+      passwordVerified: false,
+      avatar: faker.image.avatar()
     }).catch(handleFatalError)
+  }
+
+  for (var i = 0; i < TOTAL_USERS; i++) {
+    const student = await Student.createOrUpdate({
+      studentCode: faker.helpers.userCard(),
+      identityCard: faker.helpers.userCard(),
+      state: 2,
+      city: faker.address.city(),
+      phone: faker.phone.phoneNumber()
+    })
   }
 
   const users = await User.findAll().catch(handleFatalError)
