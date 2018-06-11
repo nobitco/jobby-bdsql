@@ -1,6 +1,13 @@
 const db = require('../')
 const faker = require('faker/locale/es')
+
+function getRandomInt (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
 const TOTAL_USERS = 20
+const TOTAL_STUDENTS = 20
+var statePractice = ['busqueda', 'proceso', 'culminado']
 
 async function run () {
   const config = {
@@ -12,6 +19,8 @@ async function run () {
   }
 
   const { User, Student } = await db(config).catch(handleFatalError)
+
+  // seedings users
 
   for (var i = 0; i < TOTAL_USERS; i++) {
     const user = await User.createOrUpdate({
@@ -25,20 +34,28 @@ async function run () {
     }).catch(handleFatalError)
   }
 
-  for (var i = 0; i < TOTAL_USERS; i++) {
-    const student = await Student.createOrUpdate({
-      studentCode: faker.helpers.userCard(),
-      identityCard: faker.helpers.userCard(),
-      state: 2,
-      city: faker.address.city(),
-      phone: faker.phone.phoneNumber()
-    })
-  }
-
+  /*
   const users = await User.findAll().catch(handleFatalError)
   console.log('--usuarios--')
   console.log(users)
   console.log('Database seeding success!')
+  */
+
+  // seeings student
+
+  for (let i = 0; i < TOTAL_STUDENTS; i++) {
+    const student = await Student.createOrUpdate({
+      phone: faker.phone.phoneNumber(),
+      city: faker.address.city(),
+      state: statePractice[0],
+      placeId: getRandomInt(1, 4),
+      bossId: getRandomInt(1, 4),
+      coordinatorId: getRandomInt(1, 4),
+      universityId: getRandomInt(1, 4),
+      userId: i + 1
+    }).catch(handleFatalError)
+  }
+
   process.exit(0)
 }
 

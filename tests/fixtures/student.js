@@ -10,43 +10,48 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-const novice = {
+const student = {
   id: 1,
-  studentCode: '99999',
-  identityCard: '99999',
-  phone: '333-33333',
-  city: 'Cali',
+  phone: faker.phone.phoneNumber(),
+  city: faker.address.city(),
   state: statePractice[0],
-  university: 1,
-  place: 1
+  userId: 1,
+  placeId: 1,
+  bossId: 1,
+  coordinatorId: 1,
+  universityId: 1
 }
 
-let novices = []
-let novicerm = {}
+let students = []
+let studentrm = {}
 
 let nTotal = getRandomInt(15, 80)
 let idUniversity
 let idEnterprise
 let idStatePractice
 
+students.push(student)
+
 for (let i = 2; i <= nTotal; i++) {
   idUniversity = getRandomInt(0, 3)
   idEnterprise = getRandomInt(0, 3)
   idStatePractice = getRandomInt(0, 3)
-  novicerm = {
-    id: i - 1,
-    studentCode: faker.helpers.userCard(),
-    identityCard: faker.helpers.userCard(),
+  studentrm = {
+    id: i,
     phone: faker.phone.phoneNumber(),
     city: faker.address.city(),
-    state: statePractice[0],
-    university: 1,
-    place: 1
+    state: statePractice[idStatePractice],
+    userId: i,
+    placeId: idEnterprise,
+    bossId: 1,
+    coordinatorId: 1,
+    universityId: idUniversity
   }
-  novices.push(novicerm)
+  students.push(studentrm)
 }
 
 module.exports = {
-  single: novice,
-  all: novices
+  single: student,
+  all: students,
+  byId: id => students.filter(a => a.id === id).shift()
 }

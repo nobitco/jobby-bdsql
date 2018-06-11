@@ -3,40 +3,42 @@
 const test = require('ava')
 const sinon = require('sinon')
 const proxyquire = require('proxyquire')
-
 const studentFixtures = require('./fixtures/student')
 
 let db = null
 let config = {
   logging: function () {}
 }
-let StudentStub = null
+
+let StudentStub = {
+  belongsTo: sinon.spy()
+}
+
+let UserStub = null
 let sandbox = null
-let idStudent = 1
+// id student
+let id = 1 
 
 let single = Object.assign({}, studentFixtures.single)
 
 let newStudent = {
-  id: 1,
-  studentCode: '99999',
-  identityCard: '99999',
-  phone: '311-707323',
+  id: 9999,
+  phone: '333-333333', 
   city: 'cali',
   state: 'busqueda',
-  university: 1,
-  place: 1
+  userId: 1,
+  placeId: 1,
+  bossId: 1,
+  coordinatorId: 1,
+  universityId: 1
 }
 
 let studentArgs = {
-  where: { idStudent }
+  where: { id }
 }
 
 test.beforeEach(async () => {
   sandbox = sinon.sandbox.create()
-
-  StudentStub = {
-    belongsTo: sandbox.spy()
-  }
 
   // Model create stub
   StudentStub.create = sandbox.stub()
@@ -46,9 +48,19 @@ test.beforeEach(async () => {
 
   // Model findOne stub
   StudentStub.findOne = sandbox.stub()
-  StudentStub.findOne.withArgs(studentArgs).returns(Promise.resolve( studentFixtures.single ))
+  StudentStub.findOne.withArgs(studentArgs).returns(Promise.resolve(studentFixtures.byId(id)))
+
+  //Model update stub
+  StudentStub.update = sandbox.stub()
+  StudentStub.update.withArgs(single, studentArgs).returns(Promise.resolve(single))
+  
+  // Model deleteById stub
+  StudentStub.destroy = sandbox.stub()
+  StudentStub.destroy.withArgs(studentArgs).returns(Promise.resolve(1))
+
   const setupDatabase = proxyquire('../', {
-    './models/student': () => StudentStub
+    './models/student': () => StudentStub,
+    './models/user': () => UserStub
   })
 
   db = await setupDatabase(config)
@@ -60,6 +72,11 @@ test.afterEach(() => {
 
 test('pass', t => {
   t.pass()
+})
+
+test.serial('Setup', t => {
+  t.true(StudentStub.belongsTo.called, 'StudentModel.belongsTo was executed')
+  t.true(StudentStub.belongsTo.calledWith(UserStub), 'Argument should be the AgentModel')
 })
 
 test.serial('Student#createOrUpdate - new', async t => {
@@ -75,4 +92,27 @@ test.serial('Student#createOrUpdate - new', async t => {
   t.true(StudentStub.create.calledWith(newStudent), 'create should be called with specified args')
 
   t.deepEqual(student, newStudent, 'user should be the same')
+})
+
+test.serial('Student#createOrUpdate - exists', async t => {
+  let student = await db.Student.createOrUpdate(single)
+
+  t.true(StudentStub.findOne.called, 'findOne should be called on model')
+  t.true(StudentStub.findOne.calledTwice, 'findOne should be called once')
+  t.true(StudentStub.findOne.calledWith({
+    where: { id: id} 
+  }), 'findOne should be called with id student args')
+  t.true(StudentStub.update.called, 'create should be called on model')
+  t.true(StudentStub.update.calledOnce, 'update should be called once')
+  t.true(StudentStub.update.calledWith(single, studentArgs), 'update should be called with args single and studentArgs')
+  
+  t.deepEqual(student, single)
+})
+
+test.serial('Student#deleteById', async t => {
+  let result = await db.Student.deleteById(single.id)
+
+  t.true(StudentStub.destroy.called, 'deleteById should be called on model')
+
+  t.deepEqual(result, 1)
 })
