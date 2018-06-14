@@ -14,16 +14,20 @@ let StudentStub = {
   belongsTo: sinon.spy()
 }
 
+let CoordinatorStub = {
+  belongsTo: sinon.spy()
+}
+
 let UserStub = null
 let sandbox = null
 // id student
-let id = 1 
+let id = 1
 
 let single = Object.assign({}, studentFixtures.single)
 
 let newStudent = {
   id: 9999,
-  phone: '333-333333', 
+  phone: '333-333333',
   city: 'cali',
   state: 'busqueda',
   userId: 1,
@@ -50,17 +54,18 @@ test.beforeEach(async () => {
   StudentStub.findOne = sandbox.stub()
   StudentStub.findOne.withArgs(studentArgs).returns(Promise.resolve(studentFixtures.byId(id)))
 
-  //Model update stub
+  // Model update stub
   StudentStub.update = sandbox.stub()
   StudentStub.update.withArgs(single, studentArgs).returns(Promise.resolve(single))
-  
+
   // Model deleteById stub
   StudentStub.destroy = sandbox.stub()
   StudentStub.destroy.withArgs(studentArgs).returns(Promise.resolve(1))
 
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
-    './models/user': () => UserStub
+    './models/user': () => UserStub,
+    './models/coordinator': () => CoordinatorStub
   })
 
   db = await setupDatabase(config)
@@ -100,12 +105,12 @@ test.serial('Student#createOrUpdate - exists', async t => {
   t.true(StudentStub.findOne.called, 'findOne should be called on model')
   t.true(StudentStub.findOne.calledTwice, 'findOne should be called once')
   t.true(StudentStub.findOne.calledWith({
-    where: { id: id} 
+    where: { id: id }
   }), 'findOne should be called with id student args')
   t.true(StudentStub.update.called, 'create should be called on model')
   t.true(StudentStub.update.calledOnce, 'update should be called once')
   t.true(StudentStub.update.calledWith(single, studentArgs), 'update should be called with args single and studentArgs')
-  
+
   t.deepEqual(student, single)
 })
 
