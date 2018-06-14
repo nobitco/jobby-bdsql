@@ -6,7 +6,11 @@ function getRandomInt (min, max) {
 }
 
 const TOTAL_USERS = 20
-const TOTAL_STUDENTS = 20
+const TOTAL_STUDENTS = 10
+const TOTAL_COORDINATORS = 10
+
+let userId = 1
+
 var statePractice = ['busqueda', 'proceso', 'culminado']
 
 async function run () {
@@ -18,7 +22,7 @@ async function run () {
     dialect: 'mysql'
   }
 
-  const { User, Student } = await db(config).catch(handleFatalError)
+  const { User, Student, Coordinator } = await db(config).catch(handleFatalError)
 
   // seedings users
 
@@ -41,7 +45,7 @@ async function run () {
   console.log('Database seeding success!')
   */
 
-  // seeings student
+  // seedings student
 
   for (let i = 0; i < TOTAL_STUDENTS; i++) {
     const student = await Student.createOrUpdate({
@@ -52,10 +56,22 @@ async function run () {
       bossId: getRandomInt(1, 4),
       coordinatorId: getRandomInt(1, 4),
       universityId: getRandomInt(1, 4),
-      userId: i + 1
+      userId: userId
     }).catch(handleFatalError)
+    userId++
   }
 
+  for (let i = 1; i <= TOTAL_COORDINATORS; i++) {
+    const coordinator = await Coordinator.createOrUpdate({
+      phone: faker.phone.phoneNumber(),
+      address: faker.address.streetAddress(),
+      userId: userId,
+      universityId: getRandomInt(1, 3)
+    }).catch(handleFatalError)
+    userId++
+  }
+
+  console.log('Seeding success!')
   process.exit(0)
 }
 
