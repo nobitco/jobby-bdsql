@@ -25,6 +25,10 @@ let UserStub = {
   hasMany: sinon.spy()
 }
 
+let UniversityStub = {
+  hasMany: sinon.spy()
+}
+
 // id coordinator
 let id = 1
 
@@ -65,7 +69,8 @@ test.beforeEach(async () => {
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
     './models/user': () => UserStub,
-    './models/coordinator': () => CoordinatorStub
+    './models/coordinator': () => CoordinatorStub,
+    './models/university': () => UniversityStub
   })
 
   db = await setupDatabase(config)

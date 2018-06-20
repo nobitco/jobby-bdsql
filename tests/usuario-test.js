@@ -19,6 +19,10 @@ let CoordinatorStub = {
   belongsTo: sinon.spy()
 }
 
+let UniversityStub = {
+  hasMany: sinon.spy()
+}
+
 let UserStub = null
 let sandbox = null
 let username = 'jamarquez'
@@ -58,7 +62,8 @@ test.beforeEach(async () => {
   const setupDatabase = proxyquire('../', {
     './models/user': () => UserStub,
     './models/student': () => StudentStub,
-    './models/coordinator': () => CoordinatorStub
+    './models/coordinator': () => CoordinatorStub,
+    './models/university': () => UniversityStub
   })
 
   db = await setupDatabase(config)

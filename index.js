@@ -4,9 +4,11 @@ const setupDatabase = require('./lib/db')
 const setupUserModel = require('./models/user')
 const setupStudentModel = require('./models/student')
 const setupCoordinatorModel = require('./models/coordinator')
+const setupUniversityModel = require('./models/university')
 const setupUser = require('./lib/user')
 const setupStudent = require('./lib/student')
 const setupCoordinator = require('./lib/coordinator')
+const setupUniversity = require('./lib/university')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -27,9 +29,11 @@ module.exports = async function (config) {
   const UserModel = setupUserModel(config)
   const StudentModel = setupStudentModel(config)
   const CoordinatorModel = setupCoordinatorModel(config)
+  const UniversityModel = setupUniversityModel(config)
 
   StudentModel.belongsTo(UserModel)
   CoordinatorModel.belongsTo(UserModel)
+  UniversityModel.hasMany(CoordinatorModel)
 
   await sequelize.authenticate()
 
@@ -40,10 +44,12 @@ module.exports = async function (config) {
   const User = setupUser(UserModel)
   const Student = setupStudent(StudentModel)
   const Coordinator = setupCoordinator(CoordinatorModel)
+  const University = setupUniversity(UniversityModel)
 
   return {
     User,
     Student,
-    Coordinator
+    Coordinator,
+    University
   }
 }
