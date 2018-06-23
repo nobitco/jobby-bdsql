@@ -15,7 +15,8 @@ let StudentStub = {
 }
 
 let CoordinatorStub = {
-  belongsTo: sinon.spy()
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
 
 let UniversityStub = {
@@ -41,7 +42,7 @@ let newStudent = {
   universityId: 1
 }
 
-let studentArgs = {
+let idArgs = {
   where: { id }
 }
 
@@ -56,15 +57,15 @@ test.beforeEach(async () => {
 
   // Model findOne stub
   StudentStub.findOne = sandbox.stub()
-  StudentStub.findOne.withArgs(studentArgs).returns(Promise.resolve(studentFixtures.byId(id)))
+  StudentStub.findOne.withArgs(idArgs).returns(Promise.resolve(studentFixtures.byId(id)))
 
   // Model update stub
   StudentStub.update = sandbox.stub()
-  StudentStub.update.withArgs(single, studentArgs).returns(Promise.resolve(single))
+  StudentStub.update.withArgs(single, idArgs).returns(Promise.resolve(single))
 
   // Model deleteById stub
   StudentStub.destroy = sandbox.stub()
-  StudentStub.destroy.withArgs(studentArgs).returns(Promise.resolve(1))
+  StudentStub.destroy.withArgs(idArgs).returns(Promise.resolve(1))
 
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
@@ -96,7 +97,7 @@ test.serial('Student#createOrUpdate - new', async t => {
   t.true(StudentStub.findOne.calledOnce, 'findOne should be called once')
   t.true(StudentStub.findOne.calledWith({
     where: { id: newStudent.id }
-  }), 'findOne should be called with username args')
+  }), 'findOne should be called with id args')
   t.true(StudentStub.create.called, 'create should be called on model')
   t.true(StudentStub.create.calledOnce, 'create should be called once')
   t.true(StudentStub.create.calledWith(newStudent), 'create should be called with specified args')
@@ -114,7 +115,7 @@ test.serial('Student#createOrUpdate - exists', async t => {
   }), 'findOne should be called with id student args')
   t.true(StudentStub.update.called, 'create should be called on model')
   t.true(StudentStub.update.calledOnce, 'update should be called once')
-  t.true(StudentStub.update.calledWith(single, studentArgs), 'update should be called with args single and studentArgs')
+  t.true(StudentStub.update.calledWith(single, idArgs), 'update should be called with args single and studentArgs')
 
   t.deepEqual(student, single)
 })

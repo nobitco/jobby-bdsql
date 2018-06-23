@@ -14,7 +14,8 @@ let config = {
 }
 
 let CoordinatorStub = {
-  belongsTo: sinon.spy()
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
 
 let StudentStub = {
@@ -29,20 +30,19 @@ let UniversityStub = {
   hasMany: sinon.spy()
 }
 
-// id coordinator
-let id = 1
+// user id coordinator
+let userId = 1
 
 let single = Object.assign({}, coordinatorFixtures.single)
 
 let newCoordinator = {
-  id: 3431,
   phone: faker.phone.phoneNumber(),
   address: faker.address.streetAddress(),
-  userId: 1
+  userId: 9999
 }
 
-let coordinatorArgs = {
-  where: { id }
+let useridArgs = {
+  where: { userId }
 }
 
 test.beforeEach(async () => {
@@ -56,15 +56,15 @@ test.beforeEach(async () => {
 
   // Model findOne stub
   CoordinatorStub.findOne = sandbox.stub()
-  CoordinatorStub.findOne.withArgs(coordinatorArgs).returns(Promise.resolve(coordinatorFixtures.byId(id)))
+  CoordinatorStub.findOne.withArgs(useridArgs).returns(Promise.resolve(coordinatorFixtures.byUserId(userId)))
 
   // Model update stub
   CoordinatorStub.update = sandbox.stub()
-  CoordinatorStub.update.withArgs(single, coordinatorArgs).returns(Promise.resolve(single))
+  CoordinatorStub.update.withArgs(single, useridArgs).returns(Promise.resolve(single))
 
   // Model deleteById stub
   CoordinatorStub.destroy = sandbox.stub()
-  CoordinatorStub.destroy.withArgs(coordinatorArgs).returns(Promise.resolve(1))
+  CoordinatorStub.destroy.withArgs(useridArgs).returns(Promise.resolve(1))
 
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
@@ -90,8 +90,8 @@ test.serial('Coordinator#createOrUpdate - new', async t => {
   t.true(CoordinatorStub.findOne.called, 'findOne should be called on model')
   t.true(CoordinatorStub.findOne.calledOnce, 'findOne should be called once')
   t.true(CoordinatorStub.findOne.calledWith({
-    where: { id: newCoordinator.id }
-  }), 'findOne should be called with username args')
+    where: { userId: newCoordinator.userId }
+  }), 'findOne should be called with id args')
   t.true(CoordinatorStub.create.called, 'create should be called on model')
   t.true(CoordinatorStub.create.calledOnce, 'create should be called once')
   t.true(CoordinatorStub.create.calledWith(newCoordinator), 'create should be called with specified args')
@@ -105,17 +105,17 @@ test.serial('Coordinator#createOrUpdate - exists', async t => {
   t.true(CoordinatorStub.findOne.called, 'findOne should be called on model')
   t.true(CoordinatorStub.findOne.calledTwice, 'findOne should be called once')
   t.true(CoordinatorStub.findOne.calledWith({
-    where: { id: id }
+    where: { userId: userId }
   }), 'findOne should be called with id student args')
   t.true(CoordinatorStub.update.called, 'create should be called on model')
   t.true(CoordinatorStub.update.calledOnce, 'update should be called once')
-  t.true(CoordinatorStub.update.calledWith(single, coordinatorArgs), 'update should be called with args single and studentArgs')
+  t.true(CoordinatorStub.update.calledWith(single, useridArgs), 'update should be called with args single and studentArgs')
 
   t.deepEqual(coordinator, single)
 })
 
 test.serial('Coordinator#deleteById', async t => {
-  let result = await db.Coordinator.deleteById(single.id)
+  let result = await db.Coordinator.deleteByUserId(single.userId)
 
   t.true(CoordinatorStub.destroy.called, 'deleteById should be called on model')
 

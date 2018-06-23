@@ -33,6 +33,7 @@ module.exports = async function (config) {
 
   StudentModel.belongsTo(UserModel)
   CoordinatorModel.belongsTo(UserModel)
+  CoordinatorModel.hasMany(StudentModel)
   UniversityModel.hasMany(CoordinatorModel)
 
   await sequelize.authenticate()

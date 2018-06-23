@@ -7,7 +7,6 @@ function getRandomInt (min, max) {
 }
 
 const coordinator = {
-  id: 1,
   phone: faker.phone.phoneNumber(),
   address: faker.address.streetAddress(),
   userId: 1,
@@ -35,5 +34,6 @@ for (let i = 2; i <= nTotal; i++) {
 module.exports = {
   single: coordinator,
   all: coordinators,
-  byId: id => coordinators.filter(a => a.id === id).shift()
+  byId: id => coordinators.filter(a => a.id === id).shift(),
+  byUserId: userId => coordinators.filter(a => a.userId === userId).shift()
 }

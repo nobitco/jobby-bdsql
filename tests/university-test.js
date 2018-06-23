@@ -14,7 +14,8 @@ let config = {
 }
 
 let CoordinatorStub = {
-  belongsTo: sinon.spy()
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
 
 let StudentStub = {
@@ -41,7 +42,7 @@ let newUniversity = {
   url: faker.internet.url()
 }
 
-let universityArgs = {
+let idArgs = {
   where: { id }
 }
 
@@ -50,7 +51,7 @@ test.beforeEach(async () => {
 
   // Model findOne stub
   UniversityStub.findOne = sandbox.stub()
-  UniversityStub.findOne.withArgs(universityArgs).returns(Promise.resolve(universityFixtures.byId(id)))
+  UniversityStub.findOne.withArgs(idArgs).returns(Promise.resolve(universityFixtures.byId(id)))
 
   // Model stub create
   UniversityStub.create = sandbox.stub()
@@ -60,11 +61,11 @@ test.beforeEach(async () => {
 
   // Model update stub
   UniversityStub.update = sandbox.stub()
-  UniversityStub.update.withArgs(single, universityArgs).returns(Promise.resolve(single))
+  UniversityStub.update.withArgs(single, idArgs).returns(Promise.resolve(single))
 
   // Model deleteById stub
   UniversityStub.destroy = sandbox.stub()
-  UniversityStub.destroy.withArgs(universityArgs).returns(Promise.resolve(1))
+  UniversityStub.destroy.withArgs(idArgs).returns(Promise.resolve(1))
 
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
@@ -91,7 +92,7 @@ test.serial('University#createOrUpdate - new', async t => {
   t.true(UniversityStub.findOne.calledOnce, 'findOne should be called once')
   t.true(UniversityStub.findOne.calledWith({
     where: { id: newUniversity.id }
-  }), 'findOne should be called with username args')
+  }), 'findOne should be called with id args')
   t.true(UniversityStub.create.called, 'create should be called on model')
   t.true(UniversityStub.create.calledOnce, 'create should be called once')
   t.true(UniversityStub.create.calledWith(newUniversity), 'create should be called with specified args')
@@ -109,7 +110,7 @@ test.serial('University#createOrUpdate - exists', async t => {
   }), 'findOne should be called with id student args')
   t.true(UniversityStub.update.called, 'create should be called on model')
   t.true(UniversityStub.update.calledOnce, 'update should be called once')
-  t.true(UniversityStub.update.calledWith(single, universityArgs), 'update should be called with args single and studentArgs')
+  t.true(UniversityStub.update.calledWith(single, idArgs), 'update should be called with args single and studentArgs')
 
   t.deepEqual(university, single)
 })
