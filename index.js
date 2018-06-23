@@ -6,6 +6,7 @@ const setupStudentModel = require('./models/student')
 const setupCoordinatorModel = require('./models/coordinator')
 const setupUniversityModel = require('./models/university')
 const setupBossModel = require('./models/boss')
+const setupPlaceModel = require('./models/place')
 const setupUser = require('./lib/user')
 const setupStudent = require('./lib/student')
 const setupCoordinator = require('./lib/coordinator')
@@ -33,12 +34,14 @@ module.exports = async function (config) {
   const CoordinatorModel = setupCoordinatorModel(config)
   const UniversityModel = setupUniversityModel(config)
   const BossModel = setupBossModel(config)
+  const PlaceModel = setupPlaceModel(config)
 
   StudentModel.belongsTo(UserModel)
   CoordinatorModel.belongsTo(UserModel)
   CoordinatorModel.hasMany(StudentModel)
   UniversityModel.hasMany(CoordinatorModel)
   BossModel.belongsTo(UserModel)
+  PlaceModel.belongsTo(BossModel)
 
   await sequelize.authenticate()
 
