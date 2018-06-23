@@ -5,10 +5,12 @@ const setupUserModel = require('./models/user')
 const setupStudentModel = require('./models/student')
 const setupCoordinatorModel = require('./models/coordinator')
 const setupUniversityModel = require('./models/university')
+const setupBossModel = require('./models/boss')
 const setupUser = require('./lib/user')
 const setupStudent = require('./lib/student')
 const setupCoordinator = require('./lib/coordinator')
 const setupUniversity = require('./lib/university')
+const setupBoss = require('./lib/boss')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -30,11 +32,13 @@ module.exports = async function (config) {
   const StudentModel = setupStudentModel(config)
   const CoordinatorModel = setupCoordinatorModel(config)
   const UniversityModel = setupUniversityModel(config)
+  const BossModel = setupBossModel(config)
 
   StudentModel.belongsTo(UserModel)
   CoordinatorModel.belongsTo(UserModel)
   CoordinatorModel.hasMany(StudentModel)
   UniversityModel.hasMany(CoordinatorModel)
+  BossModel.belongsTo(UserModel)
 
   await sequelize.authenticate()
 
@@ -46,11 +50,13 @@ module.exports = async function (config) {
   const Student = setupStudent(StudentModel)
   const Coordinator = setupCoordinator(CoordinatorModel)
   const University = setupUniversity(UniversityModel)
+  const Boss = setupBoss(BossModel)
 
   return {
     User,
     Student,
     Coordinator,
-    University
+    University,
+    Boss
   }
 }

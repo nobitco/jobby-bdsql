@@ -23,7 +23,12 @@ let UniversityStub = {
   hasMany: sinon.spy()
 }
 
+let BossStub = {
+  belongsTo: sinon.spy()
+}
+
 let UserStub = null
+
 let sandbox = null
 // id student
 let id = 1
@@ -71,7 +76,8 @@ test.beforeEach(async () => {
     './models/student': () => StudentStub,
     './models/user': () => UserStub,
     './models/coordinator': () => CoordinatorStub,
-    './models/university': () => UniversityStub
+    './models/university': () => UniversityStub,
+    './models/boss': () => BossStub
   })
 
   db = await setupDatabase(config)
