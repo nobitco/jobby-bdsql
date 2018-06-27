@@ -12,6 +12,7 @@ const setupStudent = require('./lib/student')
 const setupCoordinator = require('./lib/coordinator')
 const setupUniversity = require('./lib/university')
 const setupBoss = require('./lib/boss')
+const setupPlace = require('./lib/place')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -55,7 +56,7 @@ module.exports = async function (config) {
   const Coordinator = setupCoordinator(CoordinatorModel)
   const University = setupUniversity(UniversityModel)
   const Boss = setupBoss(BossModel)
-  const Place = setupBoss(PlaceModel)
+  const Place = setupPlace(PlaceModel)
 
   return {
     User,

@@ -14,6 +14,10 @@ module.exports = function setupBoosModel (config) {
     phone: {
       type: Sequelize.STRING(50),
       allowNull: true
+    },
+    placeId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     }
   })
 }
