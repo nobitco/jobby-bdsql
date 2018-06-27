@@ -14,8 +14,7 @@ let config = {
 }
 
 let BossStub = {
-  belongsTo: sinon.spy(),
-  hasMany: sinon.spy()
+  belongsTo: sinon.spy()
 }
 
 let StudentStub = {
@@ -27,6 +26,16 @@ let UserStub = {
 }
 
 let UniversityStub = {
+  hasMany: sinon.spy()
+}
+
+let CoordinatorStub = {
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
+}
+
+let PlaceStub = {
+  belongsTo: sinon.spy(),
   hasMany: sinon.spy()
 }
 
@@ -67,9 +76,10 @@ test.beforeEach(async () => {
   const setupDatabase = proxyquire('../', {
     './models/student': () => StudentStub,
     './models/user': () => UserStub,
-    './models/coordinator': () => BossStub,
+    './models/coordinator': () => CoordinatorStub,
     './models/university': () => UniversityStub,
-    './models/boss': () => BossStub
+    './models/boss': () => BossStub,
+    './models/place': () => PlaceStub
   })
 
   db = await setupDatabase(config)

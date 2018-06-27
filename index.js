@@ -41,7 +41,8 @@ module.exports = async function (config) {
   CoordinatorModel.hasMany(StudentModel)
   UniversityModel.hasMany(CoordinatorModel)
   BossModel.belongsTo(UserModel)
-  PlaceModel.belongsTo(BossModel)
+  PlaceModel.belongsTo(UserModel)
+  PlaceModel.hasMany(BossModel)
 
   await sequelize.authenticate()
 
@@ -54,12 +55,14 @@ module.exports = async function (config) {
   const Coordinator = setupCoordinator(CoordinatorModel)
   const University = setupUniversity(UniversityModel)
   const Boss = setupBoss(BossModel)
+  const Place = setupBoss(PlaceModel)
 
   return {
     User,
     Student,
     Coordinator,
     University,
-    Boss
+    Boss,
+    Place
   }
 }
