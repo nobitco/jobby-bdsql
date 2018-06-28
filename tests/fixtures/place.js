@@ -7,10 +7,14 @@ function getRandomInt (min, max) {
 }
 
 const place = {
+  id: 1,
+  name: faker.company.companyName(),
   phone: faker.phone.phoneNumber(),
+  city: faker.address.city(),
+  country: faker.address.country(),
   address: faker.address.streetAddress(),
-  userId: 1,
-  universityId: 1
+  avatar: faker.internet.avatar(),
+  userId: 1
 }
 
 let places = []

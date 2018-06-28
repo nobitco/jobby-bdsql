@@ -5,10 +5,12 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-const TOTAL_USERS = 36
+const TOTAL_USERS = 51
 const TOTAL_STUDENTS = 30
 const TOTAL_COORDINATORS = 6
 const TOTAL_UNIVERSITIES = 3
+const TOTAL_BOSSES = 5
+const TOTAL_PLACES = 10
 
 let userId = 1
 
@@ -23,11 +25,13 @@ async function run () {
     dialect: 'mysql'
   }
 
-  const { User, Student, Coordinator, University} = await db(config).catch(handleFatalError)
+  const { User, Student, Coordinator, University, Boss, Place} = await db(config).catch(handleFatalError)
   let swUsers = true
   let swStudents = true
   let swCoordinators = true
   let swUniversities = true
+  let swBosses = true
+  let swPlaces = true
 
   if (swUsers) {
     // seedings users
@@ -100,6 +104,38 @@ async function run () {
     }
     console.log('Student seeding success!')
   }
+
+  if (swPlaces) {
+    // seedings student
+    for (let i = 0; i < TOTAL_PLACES; i++) {
+      const place = await Place.createOrUpdate({
+        name: faker.company.companyName(),
+        phone: faker.phone.phoneNumber(),
+        city: faker.address.city(),
+        country: faker.address.country(),
+        address: faker.address.streetAddress(),
+        avatar: faker.internet.avatar(),
+        userId: userId
+      }).catch(handleFatalError)
+      userId++
+    }
+    console.log('Places seeding success!')
+  }
+
+  if (swBosses) {
+    // seedings student
+    for (let i = 0; i < TOTAL_BOSSES; i++) {
+      const place = await Boss.createOrUpdate({
+        phone: faker.phone.phoneNumber(),
+        position: faker.name.jobTitle(),
+        userId: userId,
+        placeId: getRandomInt(1, 9)
+      }).catch(handleFatalError)
+      userId++
+    }
+    console.log('Boss seeding success!')
+  }
+
   console.log('Database seeding success!')
   process.exit(0)
 }
