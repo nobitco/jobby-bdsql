@@ -14,6 +14,7 @@ const setupCoordinator = require('./lib/coordinator')
 const setupUniversity = require('./lib/university')
 const setupBoss = require('./lib/boss')
 const setupPlace = require('./lib/place')
+const setupJob = require('./lib/job')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -46,6 +47,7 @@ module.exports = async function (config) {
   BossModel.belongsTo(UserModel)
   PlaceModel.belongsTo(UserModel)
   PlaceModel.hasMany(BossModel)
+  PlaceModel.hasMany(JobModel)
 
   await sequelize.authenticate()
 
@@ -59,6 +61,7 @@ module.exports = async function (config) {
   const University = setupUniversity(UniversityModel)
   const Boss = setupBoss(BossModel)
   const Place = setupPlace(PlaceModel)
+  const Job = setupJob(JobModel)
 
   return {
     User,
@@ -66,6 +69,7 @@ module.exports = async function (config) {
     Coordinator,
     University,
     Boss,
-    Place
+    Place,
+    Job
   }
 }
