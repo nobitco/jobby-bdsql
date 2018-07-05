@@ -39,6 +39,10 @@ let PlaceStub = {
   hasMany: sinon.spy()
 }
 
+let TutorStub = {
+  belongsTo: sinon.spy(),
+}
+
 let userId = 1
 
 let single = Object.assign({}, bossFixtures.single)
@@ -79,7 +83,8 @@ test.beforeEach(async () => {
     './models/coordinator': () => CoordinatorStub,
     './models/university': () => UniversityStub,
     './models/boss': () => BossStub,
-    './models/place': () => PlaceStub
+    './models/place': () => PlaceStub,
+    './models/tutor': () => TutorStub
   })
 
   db = await setupDatabase(config)
