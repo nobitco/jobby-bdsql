@@ -11,6 +11,7 @@ const TOTAL_COORDINATORS = 6
 const TOTAL_UNIVERSITIES = 3
 const TOTAL_BOSSES = 5
 const TOTAL_PLACES = 10
+const TOTAL_JOBS = 20
 
 let userId = 1
 
@@ -25,13 +26,14 @@ async function run () {
     dialect: 'mysql'
   }
 
-  const { User, Student, Coordinator, University, Boss, Place} = await db(config).catch(handleFatalError)
+  const { User, Student, Coordinator, University, Boss, Place, Job} = await db(config).catch(handleFatalError)
   let swUsers = true
   let swStudents = true
   let swCoordinators = true
   let swUniversities = true
   let swBosses = true
   let swPlaces = true
+  let swJobs = true
 
   if (swUsers) {
     // seedings users
@@ -135,6 +137,31 @@ async function run () {
     }
     console.log('Boss seeding success!')
   }
+
+  let today = Date.now()
+  let todayMysql = new Date().toISOString().slice(0, 19).replace('T', ' ')
+  
+  if (swJobs) {
+    // seedings student
+    for (let i = 0; i < TOTAL_JOBS; i++) {
+      const job = await Job.createOrUpdate({
+        title: faker.name.jobTitle(),
+        description: faker.name.jobDescriptor(),
+        type: faker.name.jobType(),
+        city: faker.address.city(),
+        state: faker.random.boolean(),
+        postTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        placeId: 1
+      }).catch(handleFatalError)
+    }
+    console.log('Job seeding success!')
+  }
+
+  // const jobs = await Job.findAll()
+  // console.log(jobs);
+
+  // let result = await Job.deleteById(2)
+  //console.log(result)
 
   console.log('Database seeding success!')
   process.exit(0)

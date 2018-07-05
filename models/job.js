@@ -7,7 +7,7 @@ module.exports = function setupJobModel (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('job', {
-    name: {
+    title: {
       type: Sequelize.STRING(100),
       allowNull: false
     },
@@ -20,7 +20,7 @@ module.exports = function setupJobModel (config) {
       allowNull: false
     },
     state: {
-      type: Sequelize.STRING(10),
+      type: Sequelize.BOOLEAN,
       allowNull: false
     },
     postTime: {
