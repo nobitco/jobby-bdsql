@@ -12,7 +12,8 @@ let config = {
 }
 
 let StudentStub = {
-  belongsTo: sinon.spy()
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
 
 let CoordinatorStub = {

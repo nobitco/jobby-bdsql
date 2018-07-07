@@ -31,12 +31,12 @@ let PlaceStub = {
 }
 
 let StudentStub = {
-    belongsTo: sinon.spy(),
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
-  
 
 let TutorStub = {
-    belongsTo: sinon.spy(),
+  belongsTo: sinon.spy(),
 }
 
 let sandbox = null
@@ -97,12 +97,10 @@ test('pass', t => {
   t.pass()
 })
 
-
 test.serial('Setup', t => {
   t.true(TutorStub.belongsTo.called, 'StudentModel.belongsTo was executed')
   t.true(TutorStub.belongsTo.calledWith(UserStub), 'Argument should be the AgentModel')
 })
-
 
 test.serial('Tutor#createOrUpdate - new', async t => {
   let tutor = await db.Tutor.createOrUpdate(newTutor)

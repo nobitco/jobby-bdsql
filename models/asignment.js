@@ -12,8 +12,8 @@ module.exports = function setupAsignmentModel (config) {
       allowNull: false
     },
     state: {
-        type: Sequelize.STRING(1),
-        allowNull: false
+      type: Sequelize.STRING(1),
+      allowNull: false
     },
     deliveryDate: {
       type: Sequelize.DATE,

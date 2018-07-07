@@ -18,7 +18,8 @@ let BossStub = {
 }
 
 let StudentStub = {
-  belongsTo: sinon.spy()
+  belongsTo: sinon.spy(),
+  hasMany: sinon.spy()
 }
 
 let UserStub = {

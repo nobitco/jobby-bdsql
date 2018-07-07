@@ -18,6 +18,7 @@ const setupBoss = require('./lib/boss')
 const setupPlace = require('./lib/place')
 const setupJob = require('./lib/job')
 const setupTutor = require('./lib/tutor')
+const setupAsignment = require('./lib/asignment')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -72,7 +73,7 @@ module.exports = async function (config) {
   const Place = setupPlace(PlaceModel)
   const Job = setupJob(JobModel)
   const Tutor = setupTutor(TutorModel)
-
+  const Asignment = setupAsignment(AsignmentModel)
   return {
     User,
     Student,
@@ -81,6 +82,7 @@ module.exports = async function (config) {
     Boss,
     Place,
     Job,
-    Tutor
+    Tutor,
+    Asignment
   }
 }
