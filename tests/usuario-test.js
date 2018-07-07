@@ -35,7 +35,7 @@ let PlaceStub = {
 }
 
 let TutorStub = {
-  belongsTo: sinon.spy(),
+  belongsTo: sinon.spy()
 }
 
 let UserStub = null

@@ -2,8 +2,6 @@
 
 const faker = require('faker')
 var statePractice = ['busqueda', 'proceso', 'culminado']
-var universities = ['icesi', 'javeriana', 'usc']
-var enterprises = ['Canon', 'Ecopetrol', 'Nobit']
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt (min, max) {

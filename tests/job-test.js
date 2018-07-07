@@ -41,13 +41,10 @@ let PlaceStub = {
 }
 
 let TutorStub = {
-  belongsTo: sinon.spy(),
+  belongsTo: sinon.spy()
 }
 
 let JobStub = null
-
-// user id coordinator
-let placeId = 1
 
 let jobId = 1
 
@@ -65,10 +62,6 @@ let newJob = {
   state: faker.random.boolean(),
   postTime: today.toString(),
   placeId: 9998
-}
-
-let placeidArgs = {
-  where: { placeId }
 }
 
 let jobIdArgs = {

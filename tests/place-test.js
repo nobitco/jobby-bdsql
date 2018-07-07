@@ -41,7 +41,7 @@ let PlaceStub = {
 }
 
 let TutorStub = {
-  belongsTo: sinon.spy(),
+  belongsTo: sinon.spy()
 }
 
 // user id coordinator

@@ -17,7 +17,6 @@ let tutorrm = {}
 
 let nTotal = getRandomInt(15, 80)
 let idUniversity
-let idCoordinator = 1
 
 tutors.push(tutor)
 

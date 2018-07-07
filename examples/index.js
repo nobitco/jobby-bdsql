@@ -26,7 +26,7 @@ async function run () {
       avatar: faker.image.avatar()
     }).catch(handleFatalError)
   }
-  
+
   const users = await User.findAll().catch(handleFatalError)
   console.log('--usuarios--')
   console.log(users)
@@ -57,7 +57,7 @@ async function run () {
 
   /*
   var statePractice = ['busqueda', 'proceso', 'culminado']
-  
+
   const newStudent = {
     id: 1,
     phone: faker.phone.phoneNumber(),

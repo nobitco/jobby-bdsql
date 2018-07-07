@@ -26,7 +26,7 @@ async function run () {
     dialect: 'mysql'
   }
 
-  const { User, Student, Coordinator, University, Boss, Place, Job} = await db(config).catch(handleFatalError)
+  const { User, Student, Coordinator, University, Boss, Place, Job } = await db(config).catch(handleFatalError)
   let swUsers = true
   let swStudents = true
   let swCoordinators = true
@@ -56,7 +56,7 @@ async function run () {
   console.log('--usuarios--')
   console.log(users)
   */
-  
+
   if (swUniversities) {
     // seedings universities
     for (let i = 1; i <= TOTAL_UNIVERSITIES; i++) {
@@ -73,7 +73,6 @@ async function run () {
     console.log('University seeding success!')
   }
 
-  
   if (swCoordinators) {
     // seedings coordinators
     for (let i = 1; i <= TOTAL_COORDINATORS; i++) {
@@ -85,7 +84,7 @@ async function run () {
       }).catch(handleFatalError)
       userId++
     }
-  
+
     console.log('Coordinator seeding success!')
   }
 
@@ -140,7 +139,7 @@ async function run () {
 
   let today = Date.now()
   let todayMysql = new Date().toISOString().slice(0, 19).replace('T', ' ')
-  
+
   if (swJobs) {
     // seedings student
     for (let i = 0; i < TOTAL_JOBS; i++) {
@@ -161,7 +160,7 @@ async function run () {
   // console.log(jobs);
 
   // let result = await Job.deleteById(2)
-  //console.log(result)
+  // console.log(result)
 
   console.log('Database seeding success!')
   process.exit(0)

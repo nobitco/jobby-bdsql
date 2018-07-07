@@ -36,7 +36,7 @@ let StudentStub = {
 }
 
 let TutorStub = {
-  belongsTo: sinon.spy(),
+  belongsTo: sinon.spy()
 }
 
 let sandbox = null
